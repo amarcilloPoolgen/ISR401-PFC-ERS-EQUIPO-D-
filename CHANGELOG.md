@@ -1,5 +1,6 @@
 # Changelog
 
+
 Todos los cambios importantes realizados en el proyecto **SGCV-IA** se documentan en este archivo.
 
 El formato utilizado está basado en *Keep a Changelog* y el versionado del proyecto.
