@@ -1,0 +1,1189 @@
+\documentclass[11pt,a4paper]{article}
+
+% ============================================================
+% PE4_U4 - Práctica Experimental Unidad IV
+% Ingeniería de Requerimientos [20303] - ISR-401
+% UTEQ - Facultad de Ciencias de la Computación
+% Sistema: SGCV-IA
+% ============================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[a4paper,margin=2.2cm,headheight=28pt]{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{amsmath}
+
+% ---------- Paleta institucional ----------
+\definecolor{uteqverde}{HTML}{2C5F2D}
+\definecolor{uteqgris}{HTML}{4D4D4D}
+
+% ---------- Encabezado / pie de página ----------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small\color{uteqgris} Ingeniería de Requerimientos (ISR-401) -- UTEQ}
+\fancyhead[R]{\small\color{uteqgris} PE4\_U4 -- Unidad IV}
+\fancyfoot[C]{\small\color{uteqgris} \thepage}
+\fancyfoot[R]{\small\color{uteqgris} SGCV-IA}
+
+% ---------- Comando de sección institucional ----------
+% Uso: \seccion{N.}{Título de la sección}
+\newcommand{\seccion}[2]{%
+  \vspace{0.6cm}
+  \noindent
+  {\color{white}\colorbox{uteqverde}{%
+    \parbox[c][1.05cm]{\dimexpr\textwidth-16pt\relax}{%
+      \hspace{6pt}\textbf{\large #1\ #2}%
+    }%
+  }}%
+  \vspace{0.35cm}
+  \par
+}
+
+\newcommand{\subseccion}[1]{%
+  \vspace{0.35cm}
+  \noindent{\color{uteqverde}\textbf{\large #1}}\par
+  \vspace{0.15cm}
+}
+
+% Título de tabla/figura en verde, cuerpo en blanco y negro (sin tcolorbox)
+\newcommand{\tituloTabla}[1]{{\color{uteqverde}\textbf{#1}}}
+
+\setlist[itemize]{leftmargin=1.4em}
+\setlist[enumerate]{leftmargin=1.6em}
+
+\hypersetup{
+  hidelinks,
+  pdftitle={PE4\_U4 - Práctica Experimental Unidad IV - SGCV-IA},
+  pdfauthor={Equipo SGCV-IA},
+  pdfsubject={Ingeniería de Requerimientos ISR-401}
+}
+
+\begin{document}
+
+% ================================================================
+% 1. CARÁTULA
+% ================================================================
+\begin{titlepage}
+\centering
+\vspace*{0.5cm}
+
+% [COMPLETAR: logo institucional opcional -- \includegraphics[width=3.5cm]{figuras/logo_uteq.png}]
+
+{\Large\bfseries UNIVERSIDAD TÉCNICA ESTATAL DE QUEVEDO\par}
+\vspace{0.15cm}
+{\large Facultad de Ciencias de la Computación\par}
+{\large Carrera de Software (Rediseño)\par}
+
+\vspace{1.2cm}
+\rule{0.85\textwidth}{1pt}
+\vspace{0.5cm}
+
+{\Large\bfseries\color{uteqverde} PE4\_U4 -- Práctica Experimental Unidad IV\par}
+\vspace{0.3cm}
+{\large Validación, Gestión de Requisitos y Herramientas CASE\par}
+\vspace{0.2cm}
+{\normalsize\itshape Inspección Fagan · Change Control Board · Trazabilidad en \\
+herramienta CASE · Baseline con Git\par}
+
+\vspace{0.5cm}
+\rule{0.85\textwidth}{1pt}
+\vspace{1cm}
+
+{\large\bfseries Sistema del PFC: SGCV-IA\par}
+{\normalsize Sistema de Gestión de Clínica Veterinaria con Inteligencia Artificial\par}
+
+\vspace{1.2cm}
+
+\begin{tabular}{ll}
+\textbf{Asignatura:} & Ingeniería de Requerimientos [20303] -- 4.\textordmasculine\ nivel \\
+\textbf{Paralelo:} & A \\
+\textbf{Período:} & 2026--2027 PPA \\
+\textbf{Docente:} & Ing. Gleiston Cicerón Guerrero Ulloa, PhD. \\
+\textbf{Semana de entrega:} & 14 \\
+\end{tabular}
+
+\vspace{1cm}
+
+\begin{tabular}{ll}
+\multicolumn{2}{l}{\textbf{Integrantes y rol desempeñado en la práctica:}}\\[4pt]
+Marcillo Ponce, Alberto Jeanpool & Moderador / Inspector 2 \\
+Herrera Ramos, Thais Melanie & Inspector 1 \\
+Arboleda Yanza, Francisco Javier & Lector \\
+\end{tabular}
+
+\vspace{1.2cm}
+
+\textbf{Fecha:} 05/08/2026
+
+\vspace{0.6cm}
+
+% Requisito G1 (gatekeeper): la URL debe quedar visible en UNA SOLA LÍNEA
+% [PENDIENTE DEL EQUIPO: reemplazar por la URL pública real del repositorio antes de compilar/entregar -- criterio de piso G1]
+\textbf{Repositorio:} \url{https://github.com/[NombreEquipo]/ISR401-PFC-ERS-SGCVIA}
+
+\vfill
+{\small Guía y Rúbrica PE4 -- Práctica Experimental Unidad IV -- ISR-401}
+\end{titlepage}
+
+% ================================================================
+% 2. RESUMEN Y OBJETIVOS
+% ================================================================
+\seccion{2.}{RESUMEN Y OBJETIVOS}
+
+\subseccion{Resumen}
+% Máximo 200 palabras.
+Este informe documenta la Práctica Experimental Unidad IV sobre el ERS vigente
+(Entrega 2A) del Sistema de Gestión de Clínica Veterinaria con Inteligencia
+Artificial (SGCV-IA). El equipo ejecutó una inspección formal tipo Fagan sobre
+las secciones 3.2 (RF-01 a RF-25) y 3.3 (RNF-01 a RNF-15) del ERS, con los
+cuatro roles diferenciados repartidos entre tres integrantes, preparación
+individual documentada en el Anexo A y un registro consolidado de 18 defectos
+únicos (0 críticos, 6 mayores, 12 menores; densidad de 1,38 defectos por
+página sobre 13 páginas efectivas). El 100\,\% de los defectos mayores fue
+corregido con texto antes/después. A partir de uno de esos defectos y de dos
+escenarios adicionales, se tramitaron tres RFC de naturaleza distinta (calidad,
+alcance y restricción normativa) ante un Change Control Board simulado, que
+aprobó los tres --uno sin condiciones y dos con condiciones-- y produjo la
+versión v1.1 del ERS. El informe cierra con la comparación de cuatro
+herramientas CASE de gestión de requisitos, el contraste entre IR tradicional
+e IR ágil aplicado al SGCV-IA, y las conclusiones críticas del equipo. La
+trazabilidad en herramienta CASE y la línea base con Git (Pasos 3 y 4 de la
+guía) quedan documentadas en las secciones 7 y 8 conforme a la evidencia
+disponible al cierre de este documento.
+
+\subseccion{Objetivo general}
+Aplicar técnicas formales de validación de requisitos, gestionar cambios mediante un
+Change Control Board simulado, implementar la trazabilidad del ERS en una herramienta
+CASE, establecer una línea base con Git y comparar metodológicamente la Ingeniería de
+Requisitos tradicional frente a la ágil, sobre el ERS real del Sistema de Gestión de
+Clínica Veterinaria con Inteligencia Artificial (SGCV-IA).
+
+\subseccion{Objetivos específicos}
+\begin{enumerate}
+  \item Ejecutar una inspección formal tipo Fagan sobre el ERS del SGCV-IA, con roles
+  diferenciados, lista de verificación y registro de defectos.
+  \item Calcular e interpretar métricas de inspección (densidad de defectos,
+  distribución por tipo y severidad, tasa de corrección).
+  \item Tramitar tres solicitudes formales de cambio (RFC) con análisis de impacto
+  sustentado en la matriz de trazabilidad.
+  \item Deliberar y decidir en un CCB simulado, dejando acta motivada y versión
+  actualizada del ERS.
+  \item Construir la trazabilidad bidireccional del ERS en una herramienta CASE de
+  gestión, con campos personalizados y enlaces verificables.
+  \item Establecer y publicar la línea base del ERS con control de versiones.
+  \item Comparar herramientas CASE de IR y contrastar IR tradicional frente a IR ágil,
+  cerrando con conclusiones críticas propias.
+\end{enumerate}
+
+% ================================================================
+% 3. FUNDAMENTO TEÓRICO
+% ================================================================
+\seccion{3.}{FUNDAMENTO TEÓRICO}
+
+\subseccion{3.1 Marco normativo}
+
+La ISO/IEC/IEEE 29148:2018 organiza la ingeniería de requisitos en tres pilares:
+los procesos de requisitos (cláusula 6), los ítems de información como el ERS
+(cláusula 7) y los criterios de calidad de un requisito individual y del conjunto
+(cláusula 5) \cite{ieee29148}. Dentro de la cláusula 6, el subapartado 6.4 ubica la
+validación de requisitos como la actividad que confirma que las especificaciones
+reflejan fielmente las necesidades del stakeholder, distinguiéndola de la
+verificación de la conformidad interna del documento. Esta ubicación normativa es
+la que sustenta que la inspección Fagan aplicada en esta práctica se considere una
+técnica de validación y no de simple corrección de forma.
+
+El control de cambios sobre los requisitos, por su parte, se apoya en dos normas
+complementarias a la 29148. La ISO/IEC/IEEE 15288:2023 define el proceso de gestión
+de la configuración a nivel de sistema, del cual se deriva la necesidad de una
+línea base auditable y de un registro de decisiones sobre cada solicitud de cambio
+\cite{ieee15288}. La ISO/IEC/IEEE 12207:2017 traslada ese mismo proceso al ámbito
+específico del ciclo de vida del software, detallando las actividades de control de
+cambios y de gestión de la configuración que un equipo de desarrollo debe ejecutar
+sobre sus artefactos, entre ellos el ERS \cite{ieee12207}.
+
+Para evaluar la calidad del ERS resultante, esta práctica aplica el modelo de
+calidad de producto de la ISO/IEC 25010:2023, que reemplaza al de 2011 y organiza
+la calidad en nueve características: adecuación funcional, eficiencia de
+desempeño, compatibilidad, capacidad de interacción, fiabilidad, seguridad,
+mantenibilidad, flexibilidad y seguridad de uso (\textit{safety}), esta última
+incorporada como característica nueva en la versión 2023 \cite{iso25010}. De estas
+nueve, la mantenibilidad y la capacidad de interacción son las más relevantes al
+momento de clasificar los defectos de ambigüedad y de verificabilidad detectados
+en la inspección, mientras que la seguridad y la fiabilidad enmarcan los NFR que
+se modifican en las solicitudes de cambio del Paso 2.
+
+Complementan este marco el SWEBOK v4.0, cuya área de conocimiento de requisitos de
+software (capítulo 1) dedica sus apartados 1.6 a 1.8 a la validación, la gestión
+del cambio y la trazabilidad de requisitos como actividades transversales al resto
+del proceso \cite{swebok2024}; la Parte V de Pohl (2025), centrada en la gestión y
+evolución de requisitos a lo largo del ciclo de vida \cite{pohl2025}; y la
+séptima edición del PMBOK, que define al Change Control Board (CCB) como el
+órgano formal responsable de evaluar, aprobar, rechazar o diferir las solicitudes
+de cambio sobre los artefactos de un proyecto, rol que en esta práctica se simula
+sobre el ERS del SGCV-IA \cite{pmbok2021}.
+
+\subseccion{3.2 Validación de requisitos}
+
+La verificación y la validación son actividades distintas y complementarias.
+La verificación responde a la pregunta \textit{¿el ERS está construido
+correctamente?}, es decir, si cumple con el formato, la trazabilidad interna y los
+criterios de calidad de la 29148; la validación responde a \textit{¿se está
+construyendo el ERS correcto?}, esto es, si los requisitos documentados
+representan realmente las necesidades del stakeholder \cite{ieee29148}. La
+inspección Fagan, técnica central de esta práctica, cumple ambas funciones a la
+vez, porque revisa tanto la forma del documento como su correspondencia con el
+dominio del problema.
+
+Entre las técnicas de validación disponibles se distinguen la revisión informal,
+el \textit{walkthrough} guiado por el autor, el prototipado para validar
+requisitos de interfaz, las listas de verificación basadas en atributos de
+calidad, y la revisión por perspectivas, en la que distintos roles (usuario,
+desarrollador, probador) inspeccionan el mismo documento desde ángulos diferentes.
+De todas ellas, la inspección Fagan es la más formal y la única que exige roles
+diferenciados, preparación individual obligatoria y métricas cuantificadas de
+defectos \cite{fagan1976}.
+
+El método Fagan, propuesto por Michael Fagan en IBM en 1976, se organiza en fases
+secuenciales: planificación (selección del material y de los roles), reunión de
+introducción u \textit{overview}, preparación individual, reunión de inspección,
+corrección (\textit{rework}) y seguimiento (\textit{follow-up}) \cite{fagan1976}.
+Los cuatro roles centrales son el Moderador, que planifica, conduce la reunión y
+verifica el cierre de los defectos; el Lector, que parafrasea el documento sección
+por sección sin leerlo literalmente, para forzar una segunda interpretación del
+texto; y dos Inspectores, que preparan de forma independiente su propia lista de
+defectos antes de la reunión. La regla que prohíbe discutir soluciones durante la
+reunión de inspección no es arbitraria: busca mantener el foco exclusivo en la
+detección, ya que mezclar detección y corrección reduce estadísticamente el número
+de defectos encontrados por unidad de tiempo.
+
+Las métricas de inspección más utilizadas son la densidad de defectos (defectos
+por página inspeccionada), la distribución por tipo y por severidad, la tasa de
+detección por inspector y el esfuerzo total en horas-persona. Estas métricas no
+solo cuantifican el resultado de una sesión, sino que permiten comparar la eficacia
+de distintos equipos o secciones del documento y decidir si un artefacto requiere
+una segunda ronda de inspección antes de avanzar a la siguiente fase del proyecto.
+Un caso de estudio recurrente en la literatura es el de los primeros informes
+internos de IBM, donde Fagan documentó reducciones sustanciales en la tasa de
+defectos que llegaban a las fases de prueba tras la introducción de inspecciones
+formales \cite{fagan1976}, resultado que motivó su adopción posterior en procesos
+de ingeniería de requisitos y no solo de código.
+
+\subseccion{3.3 Gestión de requisitos}
+
+La gestión de requisitos comprende el control de la configuración del ERS a lo
+largo de su evolución: cada versión publicada debe quedar identificada de forma
+única, con un historial de revisiones que registre qué cambió, cuándo y por qué
+\cite{ieee15288}. Una línea base (\textit{baseline}) es un punto de referencia
+formalmente aprobado que congela el estado del documento en un momento dado; a
+partir de ella, cualquier modificación posterior debe tramitarse como un cambio
+controlado y no como una edición libre. El versionado semántico del ERS (p. ej.,
+de v1.0 a v1.1) y el uso de un \textit{tag} anotado en el repositorio Git son la
+materialización técnica de ese concepto de línea base.
+
+Cada requisito, además del enunciado, debería llevar atributos de gestión:
+identificador único, prioridad, origen o fuente, estado, autor y versión en la
+que fue introducido o modificado. Estos atributos son los que permiten construir
+la trazabilidad, entendida en dos sentidos: la trazabilidad hacia atrás
+(\textit{pre-traceability} o \textit{backward traceability}), que enlaza el
+requisito con el stakeholder o documento que le dio origen, y la trazabilidad
+hacia adelante (\textit{post-traceability} o \textit{forward traceability}), que
+lo enlaza con los artefactos de diseño, código y prueba que lo implementan y
+verifican \cite{gotel1994}. La matriz de trazabilidad es la representación tabular
+de ambos sentidos y es también la herramienta que sustenta un análisis de impacto
+riguroso: ante una solicitud de cambio, el impacto no se estima a criterio del
+equipo, sino que se deriva recorriendo la matriz para identificar todos los
+artefactos directa e indirectamente afectados \cite{clelandhuang2012}.
+
+El proceso de cambio formal consta de cinco etapas: la solicitud (RFC), que
+describe el cambio y su justificación de negocio; el análisis de impacto,
+sustentado en la matriz de trazabilidad; la decisión, tomada por el Change
+Control Board conforme a lo establecido en el PMBOK \cite{pmbok2021}; la
+implementación del cambio aprobado; y el cierre, que actualiza la versión del
+documento y su historial. Un indicador complementario es la volatilidad de
+requisitos, que mide la proporción de requisitos añadidos, modificados o
+eliminados respecto del total en un período dado, y que sirve como señal temprana
+de inestabilidad en el alcance del proyecto \cite{wiegers2013}.
+
+\subseccion{3.4 Herramientas CASE para IR}
+
+Las herramientas CASE (\textit{Computer-Aided Software Engineering}) aplicadas a
+la ingeniería de requisitos se clasifican habitualmente en tres categorías:
+\textit{upper-CASE}, orientadas a las fases tempranas de análisis y
+especificación; \textit{lower-CASE}, centradas en construcción, prueba y
+despliegue; e \textit{integrated-CASE} (I-CASE), que cubren el ciclo completo y
+conectan ambos extremos mediante un repositorio compartido \cite{wiegers2013}.
+Jira, Trello, IBM DOORS, Jama Connect y ReqView, comparadas en la sección 9 de
+este informe, se ubican principalmente en el segmento upper-CASE o I-CASE según
+su grado de integración con herramientas de control de versiones.
+
+Las funcionalidades mínimas esperables de una herramienta CASE de gestión de
+requisitos son: un repositorio centralizado con control de acceso; atributos
+personalizables por requisito; trazabilidad bidireccional mediante enlaces
+explícitos; capacidad de establecer líneas base (\textit{baselining}) sobre
+conjuntos de requisitos; un flujo de control de cambios con estados y
+aprobaciones; funciones de colaboración como comentarios y notificaciones; e
+integración con sistemas de control de versiones (VCS) como Git
+\cite{clelandhuang2012}. La selección de una herramienta concreta debe considerar
+criterios como el tamaño del equipo, la complejidad regulatoria del dominio, el
+presupuesto disponible y la curva de aprendizaje, dado que herramientas más
+potentes como DOORS suelen exigir mayor inversión de tiempo de capacitación a
+cambio de mayor capacidad de trazabilidad en proyectos regulados.
+
+\subseccion{3.5 IR en procesos ágiles}
+
+En los procesos ágiles, el equivalente funcional del ERS documental es el
+\textit{product backlog}: una lista viva y priorizada de historias de usuario,
+cada una acompañada de sus criterios de aceptación \cite{cohn2004}. A diferencia
+de un requisito formal, una historia de usuario es deliberadamente ligera y actúa
+como promesa de una conversación futura entre el equipo y el stakeholder, en la
+que se terminan de precisar los detalles. El refinamiento continuo del backlog
+(\textit{grooming} o \textit{backlog refinement}) y la definición explícita de
+\textit{Definition of Ready} (DoR) y \textit{Definition of Done} (DoD) cumplen,
+en un contexto ágil, un papel análogo al de los criterios de verificabilidad y
+completitud que la inspección Fagan aplica sobre el ERS documental.
+
+El desarrollo guiado por comportamiento (BDD) formaliza los criterios de
+aceptación mediante el formato Gherkin (\textit{Given-When-Then}), que expresa el
+comportamiento esperado del sistema en lenguaje semiestructurado, comprensible
+tanto por el equipo técnico como por el stakeholder de negocio \cite{smart2014}.
+Este formato facilita, además, una forma ligera de trazabilidad: cada escenario
+Gherkin puede enlazarse automáticamente con la historia de usuario que lo origina
+y con la prueba automatizada que lo verifica, sustituyendo a la matriz de
+trazabilidad estática por una trazabilidad ejecutable.
+
+La diferencia principal entre la IR documental y la IR ágil no es de rigor sino
+de momento y de granularidad: la primera privilegia una especificación completa y
+aprobada antes de construir, mientras que la segunda privilegia la entrega
+incremental y difiere el detalle hasta el momento de implementación
+\cite{cohn2004}. Ninguno de los dos enfoques es superior de forma absoluta: la IR
+documental resulta más adecuada en dominios regulados o con contratos de alcance
+fijo, mientras que la IR ágil resulta más eficiente cuando el problema es
+exploratorio y el costo de cambio de rumbo debe mantenerse bajo. Esta discusión se
+retoma de forma contextualizada, aplicada al SGCV-IA, en la sección 10 de este
+informe.
+
+% ================================================================
+% 4. INSPECCIÓN FAGAN
+% ================================================================
+\seccion{4.}{INSPECCIÓN FAGAN}
+
+\subseccion{4.1 Roles y alcance}
+\begin{tabular}{ll}
+\textbf{Moderador:} & Marcillo Ponce, Alberto Jeanpool \\
+\textbf{Lector:} & Arboleda Yanza, Francisco Javier \\
+\textbf{Inspector 1:} & Herrera Ramos, Thais Melanie \\
+\textbf{Inspector 2:} & Marcillo Ponce, Alberto Jeanpool \\
+\end{tabular}
+
+\vspace{0.2cm}
+\small\textit{Nota: el equipo de práctica está integrado por tres personas, por lo
+que Marcillo Ponce Alberto Jeanpool desempeña simultáneamente los roles de
+Moderador e Inspector 2, conforme a lo registrado en su copia del Anexo A.}
+\normalsize
+
+\vspace{0.3cm}
+\textbf{Alcance inspeccionado:} ERS del SGCV-IA, secciones 3.2 -- Requisitos
+Funcionales (RF-01 a RF-25) y 3.3 -- Requisitos No Funcionales (RNF-01 a
+RNF-15), equivalentes a 13 páginas efectivas del documento.
+
+\subseccion{4.2 Preparación individual}
+Cada inspector completó de forma independiente su propia copia del Anexo A
+antes de la reunión de inspección, cubriendo las seis propiedades de calidad de
+la ISO/IEC/IEEE 29148:2018 (ambigüedad, completitud, consistencia,
+verificabilidad, trazabilidad y factibilidad). Los tres inspectores superaron
+el mínimo de 6 defectos exigido por el Paso 1.2 de la guía:
+
+\begin{itemize}
+  \item \textbf{Herrera Ramos, Thais Melanie (Inspector 1):} 6 hallazgos,
+  concentrados en trazabilidad hacia atrás (RNF-11 a RNF-15 sin RC de origen),
+  factibilidad (dependencia de WhatsApp Business API en RF-10/RF-12) y
+  consistencia entre RF y su RNF asociado (RF-01/RNF-08).
+  \item \textbf{Arboleda Yanza, Francisco Javier (Lector):} 6 hallazgos,
+  centrados en consistencia entre requisitos con lógica similar (RF-14 frente
+  a RF-17/RF-19; RF-22 frente a RF-24) y en trazabilidad cruzada RF--RNF
+  (RF-08/RNF-02).
+  \item \textbf{Marcillo Ponce, Alberto Jeanpool (Moderador / Inspector 2):}
+  6 hallazgos, centrados en verificabilidad (criterios sin umbral ni
+  responsable definido en RF-16, RF-06 y RNF-12) y completitud de casos de
+  excepción (RF-21, RF-15, RF-13/RF-14).
+\end{itemize}
+Las tres copias del Anexo A, firmadas y fechadas de forma individual, se
+adjuntan íntegras en la sección de Anexos de este informe.
+
+\subseccion{4.3 Acta de la reunión de inspección}
+La reunión de inspección se realizó el 05/08/2026, en modalidad virtual, con
+una duración que no superó los 90 minutos establecidos por el Paso 1.3 de la
+guía. Asistieron los tres integrantes del equipo en sus roles asignados. El
+Lector (Arboleda Yanza, Francisco Javier) parafraseó el ERS sección por
+sección --primero el bloque de Requisitos Funcionales (RF-01 a RF-25) y luego
+el de Requisitos No Funcionales (RNF-01 a RNF-15)-- sin leerlo literalmente,
+conforme al método Fagan. Los dos Inspectores reportaron sus hallazgos en el
+orden del recorrido y el Moderador los consolidó en tiempo real en el Anexo B,
+asignando tipo, severidad y requisito afectado a cada defecto. Conforme a la
+regla del método, no se discutieron soluciones durante la reunión: la
+inspección se limitó a la detección; la corrección se documenta por separado
+en la sección 5 de este informe.
+
+\subseccion{4.4 Registro consolidado de defectos}
+% Mínimo 15 defectos únicos, de los cuales al menos 3 críticos o mayores.
+\begin{longtable}{p{1.1cm}p{1.6cm}p{4.6cm}p{1.7cm}p{1.7cm}p{2.6cm}}
+\toprule
+\textbf{N.\textordmasculine} & \textbf{Sección} & \textbf{Descripción del defecto} & \textbf{Tipo} & \textbf{Severidad} & \textbf{Requisito afectado} \\
+\midrule
+\endhead
+D-01 & 3.3 RNF & RNF-11 a RNF-15 figuran como ``Elaboración propia'', sin RC asociado; rompe la trazabilidad hacia atrás hacia un stakeholder u origen documental. & Trazabilidad & Mayor & RNF-11 -- RNF-15 \\
+D-02 & 3.2 RF & RF-10 y RF-12 dependen de WhatsApp Business API sin que el ERS documente el riesgo de dependencia de ese proveedor externo. & Factibilidad & Mayor & RF-10, RF-12 \\
+D-03 & 3.2 / 3.3 & RF-01 exige ``la misma funcionalidad esencial'' (100\,\%) entre plataformas; RNF-08 la cuantifica en $\geq$95\,\%, contradiciendo al RF que respalda. & Consistencia & Mayor & RF-01, RNF-08 \\
+D-04 & 3.2 RF & El criterio de aceptación de RF-25 menciona un selector de período (día/semana/mes) que no aparece en la descripción del requisito. & Completitud / Consistencia & Menor & RF-25 \\
+D-05 & 3.2 RF & RF-17 y RF-19 exigen aprobación explícita del veterinario para sugerencias de IA de diagnóstico; RF-14 (recomendaciones nutricionales, también automáticas) no exige el mismo control. & Consistencia & Mayor & RF-14, RF-17, RF-19 \\
+D-06 & 3.2 RF & ``Conforme se aproxime dicha fecha'' no cuantifica los umbrales en el propio texto de RF-05; solo remite implícitamente a RNF-03. & Ambigüedad & Menor & RF-05 \\
+D-07 & 3.2 RF & RF-04 no aclara si los diez campos listados en el historial clínico son todos obligatorios o solo un subconjunto. & Ambigüedad & Menor & RF-04 \\
+D-08 & 3.2 RF & El criterio ``< 5 segundos'' de RF-16 no define un tamaño de historial de referencia, a diferencia de RNF-01 que sí acota ``hasta 500 pacientes''. & Verificabilidad & Menor & RF-16 \\
+D-09 & 3.2 / 3.3 & RF-17 no cita explícitamente a RNF-09 (que agrega el criterio de tiempo $\leq$5 s), rompiendo el patrón de cruce que sí siguen RF-05, RF-08, RF-22 y RF-23. & Trazabilidad & Menor & RF-17, RNF-09 \\
+D-10 & 3.2 RF & RF-21 no especifica qué ocurre con los módulos de IA (RF-17--19) cuando el sistema opera sin conexión a internet. & Completitud & Mayor & RF-21 \\
+D-11 & 3.2 RF & RF-09 admite ``llamada, WhatsApp, mensaje'' como canales; RF-10 restringe el envío de exámenes solo a WhatsApp sin justificar la diferencia. & Consistencia & Menor & RF-09, RF-10 \\
+D-12 & 3.3 RNF & RNF-11 fija 20 usuarios concurrentes sin que ningún RF dimensione el personal esperado de la clínica. & Factibilidad & Menor & RNF-11 \\
+D-13 & 3.2 RF & RF-06 no indica quién configura el ``umbral mínimo configurable'' ni el rango permitido. & Verificabilidad & Menor & RF-06 \\
+D-14 & 3.2 RF & RF-15 no indica qué ocurre si el recordatorio de indicaciones médicas no se atiende (¿reprogramación?, ¿escalamiento?). & Completitud & Menor & RF-15 \\
+D-15 & 3.2 RF & RF-22 y RF-24 regulan ambos el control de acceso por rol; RF-24 remite a RF-22 pero no queda claro si son un mismo requisito fragmentado. & Consistencia & Menor & RF-22, RF-24 \\
+D-16 & 3.3 RNF & RNF-12 no define quién audita el cumplimiento de cifrado TLS 1.2/AES-256 ni con qué periodicidad. & Verificabilidad & Menor & RNF-12 \\
+D-17 & 3.2 / 3.3 & RF-08 no cita a RNF-02 en su propia descripción (solo aparece en el criterio de aceptación), a diferencia de otros pares RF/RNF que sí se citan mutuamente. & Trazabilidad & Menor & RF-08, RNF-02 \\
+D-18 & 3.2 RF & RF-14 depende del dato de peso/condición corporal (RF-13) pero no define qué ocurre si aún no existe historial suficiente (primera visita). & Completitud & Mayor & RF-13, RF-14 \\
+\bottomrule
+\end{longtable}
+
+\textit{Detectado por:} D-04, D-05, D-07, D-11, D-15, D-17 -- Arboleda Yanza,
+Francisco Javier (Lector); D-01, D-02, D-03, D-06, D-09, D-12 -- Herrera Ramos,
+Thais Melanie (Inspector 1); D-08, D-10, D-13, D-14, D-16, D-18 -- Marcillo
+Ponce, Alberto Jeanpool (Moderador / Inspector 2).
+
+\subseccion{4.5 Métricas de inspección}
+
+\begin{longtable}{p{3.6cm}p{2.4cm}p{7.2cm}}
+\toprule
+\textbf{Métrica} & \textbf{Valor} & \textbf{Interpretación} \\
+\midrule
+\endhead
+Densidad de defectos (def./pág.) & 1{,}38 (18/13) & Con 18 defectos sobre 13 páginas
+efectivas, el ERS presenta una densidad moderada: los requisitos están
+mayormente bien redactados de forma aislada, pero persisten fallas que solo
+emergen al comparar requisitos entre sí. \\
+\addlinespace
+Distribución por tipo & Consistencia (5), Completitud (4), Trazabilidad (3),
+Verificabilidad (3), Ambigüedad (2), Factibilidad (2) & Los defectos de
+consistencia y completitud concentran la mayoría de los hallazgos, lo que
+indica que el ERS necesita revisión cruzada entre requisitos relacionados
+(especialmente entre un RF y su RNF asociado) más que corrección de redacción
+aislada. \\
+\addlinespace
+Distribución por severidad & Crítico: 0; Mayor: 6 (33\,\%); Menor: 12 (67\,\%) &
+Ningún defecto detectado es crítico, pero una tercera parte son mayores y
+exigen corrección obligatoria antes de establecer la línea base, conforme al
+Paso 1.5 de la guía. \\
+\addlinespace
+Tasa de detección por inspector & 6 defectos cada uno (Thais, Francisco,
+Jeanpool) & La distribución equilibrada (6/6/6) evidencia una preparación
+individual proporcional entre los tres integrantes, sin concentración de
+hallazgos en un solo inspector. \\
+\addlinespace
+Esfuerzo total (horas-persona) & $\approx$ 3,5 h-p (3 integrantes $\times$
+$\sim$70 min de preparación individual y reunión de 90 min) & El esfuerzo se
+mantuvo dentro de las 2 horas asignadas al Paso 1 de la guía para un ERS de 13
+páginas efectivas. \\
+\bottomrule
+\end{longtable}
+
+% ================================================================
+% 5. CORRECCIONES APLICADAS
+% ================================================================
+\seccion{5.}{CORRECCIONES APLICADAS}
+
+% Tabla antes/después por cada defecto crítico y mayor. 100% deben corregirse.
+\begin{longtable}{p{0.9cm}p{4.3cm}p{4.6cm}p{2.1cm}}
+\toprule
+\textbf{ID} & \textbf{Texto antes} & \textbf{Texto después} & \textbf{Requisito modificado} \\
+\midrule
+\endhead
+D-01 &
+Columna ``RC relacionado'' = ``Elaboración propia'' (sin vínculo a un RC de origen) en RNF-11 a RNF-15. &
+Cada RNF queda enlazado a un stakeholder real del Mapa de Stakeholders: RNF-11 $\to$ Equipo de desarrollo; RNF-12 $\to$ Comité de ética/protección de datos (LOPDP); RNF-13 $\to$ Propietario/administrador de la clínica; RNF-14 $\to$ Equipo de desarrollo; RNF-15 $\to$ Personal administrativo y Médico veterinario. &
+RNF-11 -- RNF-15 \\
+\addlinespace
+D-02 &
+``El sistema debe permitir adjuntar y enviar resultados de exámenes directamente por WhatsApp desde la plataforma.'' (RF-10) &
+Se agrega: ``Ante la indisponibilidad del proveedor de mensajería (WhatsApp Business API), el sistema debe reintentar el envío y notificar al personal administrativo del fallo.'' Este comportamiento se formaliza como nuevo requisito RF-26 vía RFC-02 (sección 6.2). &
+RF-10, RF-12 (nuevo RF-26) \\
+\addlinespace
+D-03 &
+RF-01: ``...manteniendo la misma funcionalidad esencial en ambos entornos.'' / RNF-08: ``...con paridad de funciones $\geq$95\,\% entre plataformas.'' &
+RF-01 (corregido): ``...manteniendo una paridad de funcionalidad esencial de al menos 95\,\% entre ambos entornos, conforme a RNF-08.'' &
+RF-01 \\
+\addlinespace
+D-05 &
+``El sistema debe generar recomendaciones de alimentación a partir de la raza, edad, peso y condición de salud del animal, como apoyo al juicio del veterinario.'' &
+``...sin que ninguna recomendación pueda aplicarse sin revisión explícita del veterinario, como apoyo a su juicio clínico.'' &
+RF-14 \\
+\addlinespace
+D-10 &
+``El sistema debe permitir el registro y la consulta de historiales clínicos de manera local sin conexión a internet, sincronizando al restablecerse la conexión.'' &
+Se agrega: ``Los módulos dependientes de IA (RF-17--RF-19) quedan deshabilitados durante la operación sin conexión y se reactivan automáticamente al restablecerse la conectividad, sin afectar el registro y consulta de historiales clínicos.'' &
+RF-21 \\
+\addlinespace
+D-18 &
+``La recomendación se actualiza automáticamente al registrarse un nuevo dato de peso o condición corporal (RF-13).'' &
+Se agrega: ``En la primera visita, cuando aún no exista historial suficiente, el sistema debe notificar la ausencia de datos y omitir la generación de la recomendación hasta contar con al menos un registro histórico.'' &
+RF-14, RF-13 \\
+\bottomrule
+\end{longtable}
+
+\vspace{0.2cm}
+\textbf{Defectos menores no corregidos y su justificación:} conforme al Paso
+1.5 de la guía, los 12 defectos menores (D-04, D-06, D-07, D-08, D-09, D-11,
+D-12, D-13, D-14, D-15, D-16, D-17) no comprometen la validez funcional del
+ERS ni bloquean la construcción de la línea base v1.1; quedan documentados
+como mejoras de redacción y de trazabilidad fina pendientes para la siguiente
+revisión del documento (Entrega 2B), en lugar de tramitarse como RFC en esta
+práctica. Dos de ellos (D-04 y D-18) están parcialmente cubiertos por las
+correcciones de D-05 y D-10 respectivamente, al compartir el mismo requisito
+afectado.
+
+% ================================================================
+% 6. GESTIÓN DEL CAMBIO Y CCB
+% ================================================================
+\seccion{6.}{GESTIÓN DEL CAMBIO Y CCB}
+
+\subseccion{6.1 Solicitud de Cambio RFC-01 -- (Alcance / nuevo requisito)}
+\begin{longtable}{p{4.3cm}p{8.5cm}}
+\toprule
+\multicolumn{2}{l}{\tituloTabla{RFC-01 -- 05/08/2026 -- Calidad (modificación de NFR)}} \\
+\midrule
+\endhead
+ID / Fecha / Solicitante & RFC-01 -- 05/08/2026 -- Herrera Ramos, Thais Melanie (Inspector 1) \\
+Requisito afectado & RF-01, RNF-08 \\
+Descripción del cambio & Detectado en la inspección Fagan (defecto D-03, Anexo B): RF-01 exige ``la misma funcionalidad esencial'' (100\,\%) entre plataformas móvil y de escritorio, mientras que RNF-08 cuantifica la paridad en $\geq$95\,\%. Se solicita modificar RF-01 para que remita explícitamente a la métrica de RNF-08, eliminando la contradicción. \\
+Justificación de negocio & Un RF y su RNF asociado no pueden exigir umbrales distintos para el mismo atributo de calidad; mantener ambos textos vigentes genera ambigüedad para desarrollo y para la verificación de aceptación. \\
+Requisitos impactados (matriz) & RF-01 (texto modificado); RNF-08 (sin cambio, queda como referencia); indirectamente RF-20 (usabilidad multiplataforma), por compartir el criterio de paridad funcional. \\
+Artefactos impactados & Documento ERS (secciones 3.2 y 3.3); casos de prueba de aceptación de RF-01; mockups de interfaz móvil/escritorio. \\
+Costo estimado (h-p) / Riesgo & 1 hora-persona / Riesgo bajo: corrección de consistencia textual que no altera comportamiento ni esfuerzo de desarrollo ya planificado. \\
+Recomendación técnica & Aprobar sin condiciones: alinea el ERS consigo mismo sin alterar el alcance funcional acordado con los stakeholders. \\
+\bottomrule
+\end{longtable}
+
+\subseccion{6.2 Solicitud de Cambio RFC-02 -- (Alcance / nuevo requisito)}
+\begin{longtable}{p{4.3cm}p{8.5cm}}
+\toprule
+\multicolumn{2}{l}{\tituloTabla{RFC-02 -- 05/08/2026 -- Alcance (nuevo requisito)}} \\
+\midrule
+\endhead
+ID / Fecha / Solicitante & RFC-02 -- 05/08/2026 -- Arboleda Yanza, Francisco Javier (Lector) \\
+Requisito afectado & RF-10, RF-12 (nuevo: RF-26) \\
+Descripción del cambio & La inspección Fagan (defecto D-02, Anexo B) identificó que RF-10 y RF-12 dependen de WhatsApp Business API sin mecanismo de contingencia ante indisponibilidad del proveedor. Se solicita incorporar RF-26: el sistema debe reintentar el envío y notificar al personal administrativo cuando el canal de mensajería falle. \\
+Justificación de negocio & El Mapa de Stakeholders ya identifica al ``Proveedor del servicio de mensajería'' como stakeholder de bajo poder/bajo interés bajo estrategia de ``monitorear''; su falla no debe paralizar el envío de resultados de exámenes ni de recordatorios de citas. \\
+Requisitos impactados (matriz) & RF-10, RF-12 (quedan referenciados desde RF-26); RNF-04 (disponibilidad) y RNF-10 (modularidad), por tratarse también de tolerancia a fallos de un servicio externo. \\
+Artefactos impactados & Documento ERS (nueva entrada RF-26 en 3.2); matriz de trazabilidad (nueva fila); backlog en la herramienta CASE (nueva Story). \\
+Costo estimado (h-p) / Riesgo & 3 horas-persona / Riesgo medio: sin este RF, el sistema queda sin comportamiento definido ante falla de un proveedor externo. \\
+Recomendación técnica & Aprobar con la condición de cuantificar el número de reintentos y el tiempo máximo de espera antes de notificar la falla. \\
+\bottomrule
+\end{longtable}
+
+\subseccion{6.3 Solicitud de Cambio RFC-03 -- (Restricción / normativa)}
+\begin{longtable}{p{4.3cm}p{8.5cm}}
+\toprule
+\multicolumn{2}{l}{\tituloTabla{RFC-03 -- 05/08/2026 -- Restricción / normativa}} \\
+\midrule
+\endhead
+ID / Fecha / Solicitante & RFC-03 -- 05/08/2026 -- Marcillo Ponce, Alberto Jeanpool (Moderador) \\
+Requisito afectado & RNF-12 (nuevo: RNF-16) \\
+Descripción del cambio & Se solicita incorporar RNF-16, que establezca el derecho de propietarios de mascotas y personal a solicitar rectificación o eliminación de sus datos personales, conforme a la Ley Orgánica de Protección de Datos Personales (LOPDP) de Ecuador. \\
+Justificación de negocio & El Mapa de Stakeholders identifica al ``Comité de ética / protección de datos (LOPDP)'' como stakeholder de alto poder bajo estrategia ``gestionar de cerca''. El ERS actual regula cifrado y auditoría (RNF-12, RNF-06) pero no los derechos ARCO (acceso, rectificación, cancelación, oposición). \\
+Requisitos impactados (matriz) & RNF-06 (trazabilidad/no repudio) y RNF-12 (cifrado), con los que RNF-16 debe ser consistente; RF-02 (centralización de historiales), sobre el que recaería técnicamente la eliminación solicitada. \\
+Artefactos impactados & Documento ERS (nueva entrada RNF-16 en 3.3); matriz Ley-Artículo $\to$ RF/RNF elaborada por el equipo para el criterio legal. \\
+Costo estimado (h-p) / Riesgo & 4 horas-persona / Riesgo alto si se rechaza: un sistema que gestiona historiales clínicos sin mecanismo de rectificación/eliminación queda expuesto a incumplimiento normativo. \\
+Recomendación técnica & Aprobar. Es una obligación normativa ya anticipada por el trabajo de trazabilidad legal del equipo. \\
+\bottomrule
+\end{longtable}
+
+\subseccion{6.4 Acta del CCB}
+\textbf{Fecha:} 05/08/2026 \quad \textbf{Modalidad:} Virtual
+
+\textbf{Asistentes (roles):} Marcillo Ponce, Alberto Jeanpool -- Presidente del
+CCB; Herrera Ramos, Thais Melanie -- Representante del cliente; Arboleda
+Yanza, Francisco Javier -- Analista de requisitos / Desarrollador.
+
+\textbf{Agenda:} 1) Revisión de RFC-01 (calidad -- RF-01/RNF-08). 2) Revisión
+de RFC-02 (alcance -- nuevo RF-26). 3) Revisión de RFC-03
+(restricción/normativa -- nuevo RNF-16). 4) Cierre y actualización de versión
+del ERS.
+
+\begin{longtable}{p{1.7cm}p{5.4cm}p{2.1cm}p{4.0cm}}
+\toprule
+\textbf{RFC} & \textbf{Deliberación resumida} & \textbf{Decisión} & \textbf{Justificación / Responsable / Plazo} \\
+\midrule
+\endhead
+RFC-01 & El Analista señala que la corrección no altera el alcance funcional acordado; el Representante del cliente confirma que el 95\,\% de paridad es aceptable, ya que las funciones críticas (historial, citas, facturación) están cubiertas al 100\,\% en ambos entornos. Sin objeciones. &
+Aprobado (sin condiciones) &
+No requiere justificación adicional -- consenso directo. Responsable: Herrera Ramos, Thais Melanie. Plazo: misma sesión de trabajo. \\
+\addlinespace
+RFC-02 & El Presidente considera razonables las 3 h-p; el Analista advierte que el criterio original no cuantificaba el mecanismo de reintento, dejando el requisito tan ambiguo como el defecto que corrige. El Representante del cliente propone un límite concreto. &
+Aprobado con condiciones &
+Debe cuantificarse: máximo 3 reintentos automáticos, intervalo de 5 min entre cada uno, notificación al personal administrativo si no se logra el envío en 20 min. Responsable: Arboleda Yanza, Francisco Javier. Plazo: antes de la línea base v1.1. \\
+\addlinespace
+RFC-03 & El Representante del cliente señala que eliminar historiales clínicos por completo podría chocar con obligaciones de conservación sanitaria. El Analista propone distinguir datos administrativos/de contacto (eliminables) de historiales clínicos (con conservación mínima obligatoria). El Presidente acoge la propuesta. &
+Aprobado con condiciones &
+Debe distinguirse explícitamente en RNF-16 entre datos administrativos e historiales clínicos, para no crear conflicto con RNF-06. Responsable: Marcillo Ponce, Alberto Jeanpool. Plazo: antes de la línea base v1.1. \\
+\bottomrule
+\end{longtable}
+% Decisión ∈ {aprobado, aprobado con condiciones, rechazado, diferido}
+
+\textbf{Versión resultante del ERS:} de v1.0 (Entrega 2A) a v1.1, que
+incorpora la corrección de RF-01, el nuevo requisito RF-26 y el nuevo
+requisito RNF-16. Esta versión debe declararse de forma idéntica en la
+carátula del informe, en el historial de revisiones del ERS, en
+\texttt{CHANGELOG.md} y en el tag anotado de Git (\texttt{baseline-v1.1}),
+conforme al criterio de piso G2 y al criterio C5 de la rúbrica. \\
+\textbf{Firmas:} Marcillo Ponce, Alberto Jeanpool; Herrera Ramos, Thais
+Melanie; Arboleda Yanza, Francisco Javier \emph{(firmas autógrafas u
+ológrafas pendientes de digitalizar en el Acta original, Anexo C).}
+
+% ================================================================
+% 7. TRAZABILIDAD EN HERRAMIENTA CASE
+% ================================================================
+\seccion{7.}{TRAZABILIDAD EN HERRAMIENTA CASE}
+
+\subseccion{7.1 Estructura del tablero}
+\textbf{Herramienta utilizada:} Jira (proyecto ``SI'' / ``Y'', cuenta gratuita
+del equipo). \\[4pt]
+\textcolor{uteqgris}{\textbf{Pendiente de cierre por el equipo antes de compilar
+la versión final:} el tablero creado hasta el momento organiza el backlog con
+una numeración simplificada (RF-01 a RF-15, un issue por Epic funcional:
+Gestión clínica, Inteligencia artificial y seguimiento, Gestión
+administrativa, Inventario y seguridad) que \textbf{no coincide literalmente}
+con la numeración oficial del ERS vigente (RF-01 a RF-25, según
+\texttt{SGCVIA\_RF\_RNF\_Formato\_ERS.docx}). Por ejemplo, el tablero actual
+llama ``RF-01'' a ``Registrar historial clínico'', mientras que en el ERS
+RF-01 es ``Acceso multiplataforma'' y el registro del historial corresponde a
+RF-04. Antes de exportar el CSV definitivo (Anexo D) y de construir la matriz
+de 7.3, el equipo debe renombrar las Stories del tablero para que su ID y
+título coincidan exactamente con el RF del ERS que representan; de lo
+contrario, la matriz de trazabilidad quedaría construida sobre requisitos que
+no existen tal como están nombrados en el ERS, lo que activa el criterio de
+severidad S3 de la guía (matriz con elementos inexistentes en el proyecto).
+Ver la comunicación adjunta al equipo con el detalle de esta corrección.}
+
+\subseccion{7.2 Campos personalizados}
+El equipo intentó configurar los campos ``Prioridad MoSCoW'' y ``Fuente del
+requisito'' en Jira, sin éxito por restricciones de permisos del plan
+gratuito del sitio (no se encontró la opción de creación de campos
+personalizados a nivel de proyecto). \textcolor{uteqgris}{\textbf{Pendiente:}
+si el sitio de Jira permite finalmente crear estos campos con un
+administrador del sitio, deben configurarse y aplicarse a las 15+ Stories; si
+no es posible, el equipo debe documentar aquí esta limitación real (tal como
+se hizo) y suplir la información de MoSCoW y Fuente del requisito mediante una
+columna adicional en la matriz de 7.3 y en el CSV exportado, dejando
+constancia de la limitación de la herramienta -- esto es preferible a dejar
+la sección vacía, conforme al criterio C4 de la rúbrica (``tablero parcial''
+se califica en desarrollo, no ausente, si la limitación está documentada).}
+
+\subseccion{7.3 Matriz de trazabilidad}
+% Mínimo 15 filas: Stakeholder -> RF -> CU -> Clase/Módulo -> Prueba
+\textcolor{uteqgris}{\textbf{Pendiente:} esta matriz debe construirse
+\emph{después} de corregir la numeración del tablero (7.1). Sus columnas
+deben usar el RF real del ERS (RF-01 a RF-25) y el stakeholder debe tomarse
+del Mapa de Stakeholders del equipo (\texttt{Mapa\_de\_stakeholders.csv}), ya
+usado de forma consistente en las secciones 5 y 6 de este informe. La columna
+CU/Clase/Módulo solo puede completarse con nombres reales: si el equipo no
+cuenta todavía con un diagrama de casos de uso o de clases del PFC, debe
+consignarse el módulo del sistema (p. ej. ``Módulo Clínico'', ``Módulo IA'',
+``Módulo Administrativo'', ``Módulo Inventario/Seguridad'') en lugar de
+inventar un CU o una clase, y dejar esa limitación explícita en esta misma
+subsección, tal como permite el criterio C4.}
+\begin{longtable}{p{2.3cm}p{1.6cm}p{1.6cm}p{2.8cm}p{2.5cm}}
+\toprule
+\textbf{Stakeholder} & \textbf{RF} & \textbf{CU} & \textbf{Clase / Módulo} & \textbf{Prueba} \\
+\midrule
+\endhead
+& & & & \\
+% [PENDIENTE: mínimo 15 filas, una por cada RF real del ERS, con su stakeholder de origen]
+\bottomrule
+\end{longtable}
+
+\textbf{Requisitos huérfanos identificados:} [PENDIENTE: listar los RF/RNF del
+ERS que aún no tengan Story ni enlace de trazabilidad en el tablero, una vez
+corregida la numeración.]
+
+\subseccion{7.4 Evidencias}
+[PENDIENTE: referenciar capturas del tablero completo, detalle de \(\geq 3\)
+issues con enlaces visibles y panel de estadísticas -- ver Anexo E. Referenciar
+exportación CSV -- ver Anexo D. Estas capturas deben tomarse \emph{después} de
+la corrección de numeración de 7.1 para ser coherentes con el resto del
+informe.]
+
+% ================================================================
+% 8. LÍNEA BASE CON GIT
+% ================================================================
+\seccion{8.}{LÍNEA BASE CON GIT}
+
+\subseccion{8.1 Repositorio}
+\textbf{URL:} \url{https://github.com/[NombreEquipo]/ISR401-PFC-ERS-SGCVIA}
+\textcolor{uteqgris}{\textit{[PENDIENTE: reemplazar por la URL pública real
+una vez creado el repositorio -- criterio de piso G1: si esta URL no es
+accesible públicamente al momento de la entrega, la calificación es CERO.]}}
+
+\subseccion{8.2 Commits semánticos}
+[PENDIENTE: el equipo debe registrar al menos 8 commits distribuidos, con
+autoría de los tres integrantes, documentando la subida del ERS v1.0, la
+aplicación de cada uno de los tres cambios aprobados (RFC-01, RFC-02, RFC-03)
+y la publicación de v1.1. Ejemplo de mensaje semántico coherente con esta
+práctica: \texttt{docs(ers): v1.1 - aplicar RFC-01/02/03 aprobados por CCB
+semana 14}.]
+
+\subseccion{8.3 Tag de línea base}
+\begin{verbatim}
+git tag -a baseline-v1.1 -m "Baseline aprobada por CCB - RFC-01/02/03"
+git push origin baseline-v1.1
+\end{verbatim}
+Esta versión (v1.1) debe coincidir exactamente con la declarada en el Acta
+del CCB (sección 6.4) y en el \texttt{CHANGELOG.md} (8.4).
+
+\subseccion{8.4 CHANGELOG.md}
+[PENDIENTE: una vez aplicados los cambios en el repositorio, transcribir aquí
+el \texttt{CHANGELOG.md} real. Estructura sugerida, ya coherente con las
+decisiones del CCB de la sección 6.4:]
+\begin{verbatim}
+## [1.1] - 2026-08-05
+### Añadido
+- RF-26: reintento y notificación ante falla del proveedor de mensajería
+  (RFC-02, aprobado con condiciones).
+- RNF-16: derechos de rectificación/eliminación de datos personales
+  conforme a LOPDP (RFC-03, aprobado con condiciones).
+### Cambiado
+- RF-01: paridad de funcionalidad esencial ajustada a >= 95%,
+  alineada con RNF-08 (RFC-01, aprobado sin condiciones).
+### Eliminado
+- (ninguno en esta línea base)
+\end{verbatim}
+
+\subseccion{8.5 Historial (ver Anexo E)}
+[PENDIENTE: referenciar capturas de \texttt{git log --oneline --graph
+--decorate} y \texttt{git tag -n}, tomadas después de publicar el tag
+\texttt{baseline-v1.1}.]
+
+% ================================================================
+% 9. COMPARATIVA DE HERRAMIENTAS CASE
+% ================================================================
+\seccion{9.}{COMPARATIVA DE HERRAMIENTAS CASE}
+
+Se comparan cuatro herramientas CASE de gestión de requisitos --Jira, IBM DOORS
+Next, Jama Connect y ReqView-- bajo seis criterios. Los juicios de cada celda
+son propios del equipo, contrastados con documentación oficial y con el uso real
+que el equipo dio a Jira/Trello en el Paso 3 de esta práctica; no son una copia
+del sitio comercial de cada proveedor.
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{1.7cm}p{2.1cm}p{2.1cm}p{2.1cm}p{2.1cm}p{1.7cm}p{1.9cm}}
+\toprule
+\textbf{Herramienta} & \textbf{Func. de IR} & \textbf{Trazabilidad} & \textbf{Colaboración} & \textbf{Integr. VCS} & \textbf{Costo} & \textbf{Curva de aprendizaje} \\
+\midrule
+\endhead
+Jira &
+Backlog, épicas e historias; sin matriz de trazabilidad nativa, requiere campos personalizados o plugins &
+Manual, mediante enlaces y campos; suficiente para un equipo académico pequeño &
+Alta; tablero compartido, comentarios y notificaciones en tiempo real &
+Nativa con Bitbucket/GitHub vía plugins gratuitos &
+Gratuito hasta 10 usuarios; plan pago para equipos mayores &
+Baja; interfaz intuitiva, apta sin capacitación formal \\
+\addlinespace
+IBM DOORS Next &
+Especializada en RM formal; atributos y líneas base nativas &
+Trazabilidad viva end-to-end, la más robusta de las cuatro para entornos regulados &
+Media; pensada para equipos grandes dentro del ecosistema IBM Jazz &
+Integración vía conectores con Jira y Git, no nativa &
+Alto; licenciamiento empresarial fuera de alcance de un curso &
+Alta; exige capacitación específica antes de ser productivo \\
+\addlinespace
+Jama Connect &
+RM moderna centrada en \textit{Live Traceability}; fuerte en análisis de impacto &
+Muy alta; visibilidad en tiempo real de relaciones requisito-prueba-riesgo &
+Alta; diseñada para colaboración entre stakeholders técnicos y de negocio &
+Integra con Jira y Git mediante conectores oficiales &
+Alto; orientado a industrias reguladas (automotriz, médico, aeroespacial) &
+Media; interfaz más accesible que DOORS pero con curva propia \\
+\addlinespace
+ReqView &
+Organiza requisitos, riesgos y pruebas en un mismo espacio; ligera y enfocada &
+Alta; trazabilidad end-to-end declarada como su función distintiva &
+Baja--media; pensada para equipos pequeños, menos colaborativa que Jama &
+Soporta ReqIF e integración con Git y Jira &
+Medio; más accesible que DOORS o Jama para equipos pequeños &
+Media; requiere aprender el modelo de datos propio \\
+\bottomrule
+\end{longtable}
+}
+
+\textbf{Recomendación para el PFC del equipo:} para el SGCV-IA --un sistema
+académico, sin exigencias regulatorias de la magnitud de un dominio médico o
+aeroespacial, desarrollado por un equipo de 3 a 4 integrantes-- Jira es la
+opción más adecuada. Su costo nulo en el nivel usado por el equipo, su
+integración directa con GitHub y su baja curva de aprendizaje pesan más que la
+trazabilidad nativa superior de Jama Connect o DOORS Next, cuyo costo de
+licenciamiento y complejidad de configuración no se justifican para un proyecto
+académico de esta escala. Si el SGCV-IA evolucionara hacia un despliegue
+real con componentes de decisión clínica asistida por IA sujetos a mayor
+escrutinio, Jama Connect sería la alternativa a evaluar en primer lugar, por su
+trazabilidad viva y su orientación a dominios regulados.
+
+% ================================================================
+% 10. IR TRADICIONAL FRENTE A IR ÁGIL
+% ================================================================
+\seccion{10.}{IR TRADICIONAL FRENTE A IR ÁGIL}
+
+\begin{longtable}{p{2.6cm}p{4.7cm}p{4.7cm}}
+\toprule
+\textbf{Dimensión} & \textbf{IR tradicional} & \textbf{IR ágil} \\
+\midrule
+\endhead
+Documentación &
+ERS completo, aprobado y baselineado antes de iniciar la construcción; cambios
+posteriores tramitados formalmente &
+Backlog vivo de historias de usuario; el detalle se completa justo antes de
+implementarse (\textit{just-in-time}) \\
+\addlinespace
+Gestión del cambio &
+Proceso formal vía RFC y CCB, con análisis de impacto sobre la matriz de
+trazabilidad antes de aprobar &
+El cambio se absorbe en la reprioritización del backlog entre sprints; no
+requiere un comité formal \\
+\addlinespace
+Participación de stakeholders &
+Concentrada en las fases de elicitación y validación (p. ej., la inspección
+Fagan de esta práctica) &
+Continua, mediante revisión de sprint y refinamiento periódico del backlog \\
+\addlinespace
+Herramientas &
+Herramientas CASE de RM formal (DOORS, Jama) con matrices y líneas base &
+Tableros ágiles (Jira, Trello) centrados en flujo de trabajo más que en
+documentación normativa \\
+\addlinespace
+Velocidad &
+Más lenta al inicio por el esfuerzo de especificación completa; más predecible
+después &
+Entrega incremental más rápida; el costo de los cambios se paga en cada sprint \\
+\addlinespace
+Escalabilidad &
+Escala bien en proyectos grandes, multiequipo o con exigencias de auditoría y
+cumplimiento normativo &
+Escala con dificultad sin prácticas adicionales (p. ej. SAFe) cuando crecen el
+número de equipos y las dependencias \\
+\bottomrule
+\end{longtable}
+
+\textbf{Discusión contextual:} el SGCV-IA, al ser un proyecto académico de
+alcance acotado y equipo reducido, se beneficia hoy de un enfoque
+predominantemente documental --que es, de hecho, el exigido por esta unidad y
+por el curso-- porque permite practicar formalmente la validación, la
+trazabilidad y el control de cambios sobre un ERS completo. Sin embargo, los
+mecanismos ágiles (historias de usuario con criterios de aceptación en formato
+Gherkin, backlog priorizado) resultarían más convenientes si el equipo pasara a
+una fase de implementación iterativa del sistema, donde la velocidad de entrega
+y la retroalimentación continua del cliente simulado pesan más que la
+formalidad del proceso de cambio. En la práctica, ambos enfoques no son
+mutuamente excluyentes: la matriz de trazabilidad construida en la sección 7 de
+este informe puede alimentar directamente un backlog ágil si el equipo decide
+continuar el desarrollo del SGCV-IA bajo Scrum en fases posteriores del PFC.
+
+% ================================================================
+% 11. CONCLUSIONES CRÍTICAS
+% ================================================================
+\seccion{11.}{CONCLUSIONES CRÍTICAS}
+
+% Cinco conclusiones que integren los cuatro temas de la unidad (inspección, CCB,
+% trazabilidad, baseline/comparativa). Deben interpretar resultados propios, no
+% ser afirmaciones generales de manual.
+\begin{enumerate}
+  \item De los 18 defectos consolidados en la inspección, 5 de los 6 mayores
+  (D-01, D-03, D-05, D-10, D-18) son defectos de \emph{consistencia y
+  completitud cruzada} entre un RF y su RNF asociado o entre dos RF de lógica
+  similar, no errores de redacción aislados; esto indica que el mayor riesgo
+  de calidad del ERS del SGCV-IA no está en cómo se escribe cada requisito por
+  separado, sino en la falta de una revisión sistemática de coherencia entre
+  requisitos relacionados, algo que una lectura individual (sin roles
+  diferenciados) difícilmente habría detectado.
+  \item Dos de los tres RFC aprobados (RFC-02 y RFC-03) surgieron de vacíos
+  que el propio Mapa de Stakeholders del equipo ya anticipaba --la
+  dependencia del proveedor de mensajería y la exigencia del Comité de
+  ética/LOPDP--, lo que muestra que la matriz de partes interesadas no es un
+  artefacto decorativo: usarla activamente durante el análisis de impacto
+  permitió al CCB fundamentar el riesgo de cada solicitud (medio y alto,
+  respectivamente) en un stakeholder identificado y no en una estimación
+  ``a ojo''.
+  \item La condición que el CCB impuso a RFC-02 (cuantificar reintentos y
+  tiempo de espera) y a RFC-03 (distinguir datos administrativos de
+  historiales clínicos) confirma que aprobar un cambio sin exigir que su
+  criterio de aceptación quede tan cuantificado como el resto del ERS
+  simplemente traslada el defecto original --la falta de verificabilidad-- del
+  requisito viejo al nuevo; el CCB actuó, en la práctica, como un segundo
+  filtro de calidad y no solo como un órgano de aprobación de alcance.
+  \item El defecto D-01 (RNF-11 a RNF-15 sin RC de origen) fue, a la vez, el
+  hallazgo más frecuente entre los tres inspectores y el más costoso de
+  corregir en términos de trazabilidad, porque exigió recorrer el Mapa de
+  Stakeholders completo para asignar un origen documental verificable a cada
+  RNF; esto evidencia que los requisitos no funcionales de ``elaboración
+  propia'' son, en este proyecto, el punto más débil de la trazabilidad hacia
+  atrás, y deberían ser la prioridad de revisión en la próxima entrega del ERS.
+  \item Al construir la sección 7 de este informe, el equipo detectó que el
+  tablero CASE (Jira) fue poblado con una numeración de RF simplificada que no
+  corresponde exactamente a la numeración oficial del ERS vigente; este
+  hallazgo, surgido de la propia práctica y no de la guía, confirma en la
+  práctica lo que la sección 3.4 describe en teoría: una herramienta CASE solo
+  aporta trazabilidad real si el equipo mantiene disciplina de sincronización
+  entre el artefacto normativo (el ERS) y el artefacto operativo (el
+  backlog); de lo contrario, la trazabilidad que muestra el tablero es
+  ilusoria y debe corregirse antes de exportarse como evidencia.
+\end{enumerate}
+
+% ================================================================
+% 12. DISTRIBUCIÓN DEL TRABAJO
+% ================================================================
+\seccion{12.}{DISTRIBUCIÓN DEL TRABAJO}
+
+% Debe ser contrastable con el historial de commits.
+\begin{longtable}{p{3.5cm}p{6.0cm}p{3.0cm}}
+\toprule
+\textbf{Integrante} & \textbf{Aportes} & \textbf{Rol / Commits} \\
+\midrule
+\endhead
+Marcillo Ponce, Alberto Jeanpool &
+Moderador de la inspección Fagan (planificación, conducción y consolidación
+del Anexo B); 6 defectos detectados como Inspector 2 (D-08, D-10, D-13, D-14,
+D-16, D-18); Presidente del CCB; solicitante y responsable de RFC-03
+(RNF-16). &
+Moderador / Inspector 2; Presidente CCB. Commits: \textit{[PENDIENTE: completar
+con el historial real de GitHub]} \\
+\addlinespace
+Herrera Ramos, Thais Melanie &
+6 defectos detectados como Inspector 1 (D-01, D-02, D-03, D-06, D-09, D-12),
+incluido el defecto que originó RFC-01; Representante del cliente en el CCB;
+solicitante y responsable de RFC-01 (RF-01/RNF-08). &
+Inspector 1; Representante del cliente CCB. Commits: \textit{[PENDIENTE]} \\
+\addlinespace
+Arboleda Yanza, Francisco Javier &
+Lector de la reunión de inspección (recorrido sección por sección del ERS);
+6 defectos detectados (D-04, D-05, D-07, D-11, D-15, D-17); Analista de
+requisitos / Desarrollador en el CCB; solicitante y responsable de RFC-02
+(RF-10/RF-12, nuevo RF-26). &
+Lector; Analista CCB. Commits: \textit{[PENDIENTE]} \\
+\bottomrule
+\end{longtable}
+
+\textcolor{uteqgris}{\textit{[PENDIENTE: completar la columna de commits con el
+autor real de cada commit según \texttt{git shortlog -sne} una vez publicado
+el repositorio, para que esta tabla sea contrastable con el historial de Git
+conforme al criterio C7 de la rúbrica.]}}
+
+% ================================================================
+% 13. REFERENCIAS
+% ================================================================
+\seccion{13.}{REFERENCIAS}
+
+\renewcommand{\refname}{\vspace{-2.2em}}
+\begin{thebibliography}{99}
+
+\bibitem{ieee29148} IEEE/ISO/IEC, \textit{29148:2018 -- Systems and Software
+Engineering: Life Cycle Processes: Requirements Engineering}. IEEE, 2018.
+doi: 10.1109/IEEESTD.2018.8559686.
+
+\bibitem{ieee15288} IEEE/ISO/IEC, \textit{15288:2023 -- Systems and Software
+Engineering: System Life Cycle Processes}. IEEE, 2023.
+
+\bibitem{ieee12207} IEEE/ISO/IEC, \textit{12207:2017 -- Systems and Software
+Engineering: Software Life Cycle Processes}. IEEE, 2017.
+
+\bibitem{iso25010} ISO/IEC, \textit{25010:2023 -- Systems and Software Quality
+Requirements and Evaluation (SQuaRE): Product Quality Model}. ISO, 2023.
+
+\bibitem{pohl2025} K. Pohl, \textit{Requirements Engineering: Fundamentals,
+Principles, and Techniques}, 2nd ed. Berlin, Germany: Springer, 2025.
+doi: 10.1007/978-3-662-69204-2.
+
+\bibitem{swebok2024} H. Washizaki (Ed.), \textit{Guide to the Software
+Engineering Body of Knowledge (SWEBOK Guide)}, Version 4.0. Los Alamitos, CA,
+USA: IEEE Computer Society, 2024.
+
+\bibitem{pmbok2021} Project Management Institute, \textit{A Guide to the
+Project Management Body of Knowledge (PMBOK Guide)}, 7th ed. Newtown Square,
+PA, USA: PMI, 2021.
+
+\bibitem{ireb2022} International Requirements Engineering Board, \textit{IREB
+Certified Professional for Requirements Engineering -- Foundation Level
+Syllabus}, Version 3.1. Karlsruhe, Germany: IREB, 2022.
+
+\bibitem{fagan1976} M. E. Fagan, ``Design and code inspections to reduce
+errors in program development,'' \textit{IBM Systems Journal}, vol. 15,
+no. 3, pp. 182--211, 1976. doi: 10.1147/sj.153.0182.
+
+\bibitem{cohn2004} M. Cohn, \textit{User Stories Applied: For Agile Software
+Development}. Boston, MA, USA: Addison-Wesley, 2004.
+
+\bibitem{smart2014} J. F. Smart, \textit{BDD in Action: Behavior-Driven
+Development for the Whole Software Lifecycle}. Shelter Island, NY, USA:
+Manning Publications, 2014.
+
+\bibitem{gotel1994} O. C. Z. Gotel and A. C. W. Finkelstein, ``An analysis of
+the requirements traceability problem,'' in \textit{Proc. IEEE Int. Conf.
+Requirements Engineering (ICRE)}, Colorado Springs, CO, USA, 1994,
+pp. 94--101. doi: 10.1109/ICRE.1994.292398.
+
+\bibitem{clelandhuang2012} J. Cleland-Huang, O. Gotel, and A. Zisman (Eds.),
+\textit{Software and Systems Traceability}. London, U.K.: Springer, 2012.
+doi: 10.1007/978-1-4471-2239-5.
+
+\bibitem{wiegers2013} K. Wiegers and J. Beatty, \textit{Software
+Requirements}, 3rd ed. Redmond, WA, USA: Microsoft Press, 2013.
+
+% [COMPLETAR: agregar aquí las referencias adicionales que se citen en 3.1-3.5]
+
+\end{thebibliography}
+
+% ================================================================
+% 14. ANEXOS
+% ================================================================
+\seccion{14.}{ANEXOS}
+
+\subseccion{Anexo A -- Lista de verificación de inspección}
+% Criterios ISO/IEC/IEEE 29148:2018. Una copia por inspector, firmada y fechada.
+
+\textbf{Inspector:} Herrera Ramos, Thais Melanie \hfill \textbf{Rol:} Inspector 1
+
+\begin{longtable}{p{2.0cm}p{3.2cm}p{1.6cm}p{1.0cm}p{4.0cm}}
+\toprule
+\textbf{Propiedad} & \textbf{Pregunta de verificación} & \textbf{Requisito} & \textbf{Cumple} & \textbf{Evidencia / Observación} \\
+\midrule
+\endhead
+Trazabilidad & ¿Todo RNF tiene un RC (origen) asociado hacia atrás? & RNF-11--15 & N & Figuran como ``Elaboración propia'', sin RC asociado. \\
+Factibilidad & ¿Se documentan los riesgos de dependencia de terceros? & RF-10/12 & N & Dependen de WhatsApp Business API; riesgo no documentado. \\
+Consistencia & ¿La métrica del RNF coincide con lo exigido por su RF asociado? & RF-01/RNF-08 & N & RF-01 exige 100\,\%; RNF-08 exige $\geq$95\,\%. \\
+Ambigüedad & ¿El umbral cuantificado aparece en el propio RF o solo en el RNF? & RF-05 & N & Remite implícitamente a RNF-03 sin cuantificar en el propio texto. \\
+Trazabilidad & ¿El RF cita explícitamente al RNF que amplía su criterio? & RF-17/RNF-09 & N & No cita a RNF-09, rompiendo el patrón de RF-05/08/22. \\
+Factibilidad & ¿La carga de usuarios concurrentes está respaldada por un RF? & RNF-11 & N & ``20 usuarios concurrentes'' sin RF que dimensione el personal. \\
+\bottomrule
+\end{longtable}
+\textbf{Firma:} \rule{4cm}{0.4pt} \hfill \textbf{Fecha:} 05/08/2026
+
+\vspace{0.4cm}
+\textbf{Inspector:} Arboleda Yanza, Francisco Javier \hfill \textbf{Rol:} Lector
+
+\begin{longtable}{p{2.0cm}p{3.2cm}p{1.6cm}p{1.0cm}p{4.0cm}}
+\toprule
+\textbf{Propiedad} & \textbf{Pregunta de verificación} & \textbf{Requisito} & \textbf{Cumple} & \textbf{Evidencia / Observación} \\
+\midrule
+\endhead
+Consistencia & ¿El criterio de aceptación introduce funcionalidad no descrita en el RF? & RF-25 & N & Menciona selector de período no descrito en el RF. \\
+Consistencia & ¿Los RF con lógica similar aplican el mismo control de validación? & RF-14 vs 17/19 & N & Sugerencias de IA exigen aprobación; recomendaciones nutricionales no. \\
+Ambigüedad & ¿Se indica cuáles campos del formulario son obligatorios? & RF-04 & N & No aclara si los 10 campos son todos obligatorios. \\
+Consistencia & ¿Se justifica por qué un canal se restringe respecto a otro RF similar? & RF-09 vs 10 & N & RF-10 restringe a WhatsApp sin justificar la diferencia. \\
+Consistencia & ¿Dos RF que regulan el mismo mecanismo están diferenciados? & RF-22 vs 24 & N & No queda claro si son un mismo requisito fragmentado. \\
+Trazabilidad & ¿El RF cita al RNF que amplía su criterio con una métrica adicional? & RF-08/RNF-02 & N & RF-08 no cita a RNF-02 en su descripción. \\
+\bottomrule
+\end{longtable}
+\textbf{Firma:} \rule{4cm}{0.4pt} \hfill \textbf{Fecha:} 05/08/2026
+
+\vspace{0.4cm}
+\textbf{Inspector:} Marcillo Ponce, Alberto Jeanpool \hfill \textbf{Rol:} Moderador / Inspector 2
+
+\begin{longtable}{p{2.0cm}p{3.2cm}p{1.6cm}p{1.0cm}p{4.0cm}}
+\toprule
+\textbf{Propiedad} & \textbf{Pregunta de verificación} & \textbf{Requisito} & \textbf{Cumple} & \textbf{Evidencia / Observación} \\
+\midrule
+\endhead
+Verificabilidad & ¿El criterio de aceptación es medible con datos/umbrales concretos? & RF-16 & N & ``< 5 segundos'' no define tamaño de historial de referencia. \\
+Completitud & ¿El requisito cubre los casos límite o excepcionales relevantes? & RF-21 & N & No especifica el comportamiento de RF-17--19 sin conexión. \\
+Verificabilidad & ¿Se especifica quién ejecuta la acción y bajo qué rango? & RF-06 & N & ``Umbral mínimo configurable'' sin responsable ni rango. \\
+Completitud & ¿Se define el flujo de excepción cuando la acción esperada no ocurre? & RF-15 & N & No indica qué pasa si el recordatorio no se atiende. \\
+Verificabilidad & ¿Se define responsable y periodicidad de verificación de cumplimiento? & RNF-12 & N & No define quién audita el cifrado TLS/AES-256 ni con qué periodicidad. \\
+Completitud & ¿El requisito contempla el caso de datos insuficientes (primera vez)? & RF-13/14 & N & RF-14 no define el caso sin historial suficiente. \\
+\bottomrule
+\end{longtable}
+\textbf{Firma:} \rule{4cm}{0.4pt} \hfill \textbf{Fecha:} 05/08/2026
+
+\subseccion{Anexo B -- Registro de defectos}
+Ver la tabla consolidada de la sección 4.4 (18 defectos, D-01 a D-18) y la
+tabla de correcciones aplicadas de la sección 5, ambas con el detalle
+completo exigido por esta plantilla (N.\textordmasculine, sección, descripción,
+tipo, severidad, requisito afectado y corrección).
+
+\subseccion{Anexo C -- Formulario RFC}
+Las tres instancias completas de RFC-01, RFC-02 y RFC-03, junto con el Acta
+del CCB, están transcritas íntegramente en la sección 6 de este informe
+(6.1--6.4). Las firmas autógrafas del Acta quedan pendientes de digitalizar
+por el equipo antes de la entrega final.
+
+\subseccion{Anexo D -- Exportación CSV del backlog}
+\textcolor{uteqgris}{[PENDIENTE: exportar \texttt{backlog\_export.csv} desde
+Jira \emph{después} de corregir la numeración de Stories descrita en 7.1, e
+incluirlo en \texttt{04\_Trazabilidad/} del repositorio.]}
+
+\subseccion{Anexo E -- Capturas}
+\textcolor{uteqgris}{[PENDIENTE: capturas del tablero CASE completo, detalle de
+$\geq$3 issues con enlaces visibles, panel de estadísticas (ver sección 7.4), y
+del repositorio Git -- \texttt{git log --oneline --graph --decorate} y
+\texttt{git tag -n} (ver sección 8.5).]}
+% Ejemplo de inserción de imagen:
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=0.85\textwidth]{figuras/tablero_completo.png}
+%   \caption{Tablero CASE completo -- proyecto SGCV-IA}
+% \end{figure}
+
+\subseccion{Anexo F -- Declaración de uso de IA}
+\begin{longtable}{p{4.3cm}p{8.5cm}}
+\toprule
+\textbf{Campo} & \textbf{Contenido} \\
+\midrule
+\endhead
+Herramienta y versión & Claude (Anthropic), asistente conversacional con
+herramientas de creación de documentos. \\
+Tarea asistida & Generación del esqueleto LaTeX institucional del informe;
+redacción del borrador del fundamento teórico (3.1--3.5) a partir de las
+fuentes primarias provistas por el docente en la guía; transcripción y
+formateo en LaTeX del contenido ya redactado por el equipo en los Anexos A, B
+y C (checklists de inspección, registro de defectos, RFC y Acta del CCB) y en
+el Mapa de Stakeholders; redacción de las cinco conclusiones críticas de la
+sección 11 a partir de los resultados propios documentados en las secciones
+4--6. \\
+Fragmento afectado & Secciones 1--2 (carátula y resumen), 4--6 (inspección,
+correcciones, CCB), 11 (conclusiones) y 12 (distribución del trabajo); las
+secciones 3, 9 y 10 (fundamento teórico, comparativa CASE e IR
+tradicional/ágil) fueron generadas en una sesión previa del equipo con el
+mismo asistente. \\
+Verificación crítica realizada por el equipo & Todos los defectos, RFC,
+decisiones del CCB, roles y fechas transcritos en este informe provienen de
+los archivos originales elaborados por el equipo (\texttt{AnexoA\_*.docx},
+\texttt{AnexoB\_Registro\_Defectos\_completo.xlsx}, \texttt{RFC-01/02/03.docx},
+\texttt{ACTA DEL CHANGE CONTROL BOARD.docx}, \texttt{Mapa\_de\_stakeholders.csv}),
+no fueron generados ni inventados por el asistente. El equipo debe, antes de
+la entrega: (1) corregir la numeración de Stories del tablero Jira conforme a
+lo señalado en la sección 7.1, (2) completar los apartados marcados como
+``PENDIENTE'' en las secciones 7, 8, 12 y en este mismo Anexo F con evidencia
+real (capturas, CSV, historial de Git, firmas), y (3) leer íntegramente el
+informe resultante antes de firmarlo, conforme al criterio A4 de la guía. \\
+Firmas de los integrantes & Marcillo Ponce, Alberto Jeanpool; Herrera Ramos,
+Thais Melanie; Arboleda Yanza, Francisco Javier
+\textit{(firmas pendientes)}. \\
+\bottomrule
+\end{longtable}
+
+\end{document}
